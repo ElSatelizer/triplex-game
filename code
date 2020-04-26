@@ -1,0 +1,89 @@
+#include <iostream>
+#include <ctime>
+
+void PrintIntroduction()
+{
+    std::cout << "Hello, Agent. I will assist you in your infiltration...";
+}
+void PrintHintC(int Difficulty)
+{
+std::cout << "\ncareful! this is a level " << Difficulty << " server room";
+    std::cout << "\nIt seems to be a 3 digit code\n";
+    
+}
+bool PlayGame(int Difficulty)
+ {
+    PrintHintC(Difficulty);
+ //constant variables
+    int TotalAttempts = 2;
+    int AttemptsLeft = AttemptsLeft - 1;  
+    const int MinAttemptsLeft = 0;
+    const int CodeA = rand() % Difficulty + Difficulty;
+    const int CodeB = rand() % Difficulty + Difficulty;
+    const int CodeC = rand() % Difficulty + Difficulty;
+//variable calculation console output
+    const int CodeProduct = CodeA * CodeB * CodeC;
+    const int CodeSum = CodeA + CodeB + CodeC;
+    std::cout << "\nIf the information is correct the product of these numbers is: " << CodeProduct << std::endl;
+    std::cout << "\nIntel reports say that the sum of the input digits is: " << CodeSum << std::endl;
+    std::cout << "\nPlease enter Code: \n";
+    
+//player input
+    int GuessA, GuessB, GuessC;
+    std::cin >> GuessA >> GuessB >> GuessC;
+//calculation of input
+int GuessProduct = GuessA * GuessB * GuessC;
+int GuessSum = GuessA + GuessB + GuessC;
+//win or lose
+//comparativa de resultados usuario vs ai
+if (GuessSum == CodeSum && GuessProduct == CodeProduct)
+{
+    std::cout << "Password is...Correct\n""\n Congratulations!\n""\nlets move on to the next room";
+
+    return true;
+}
+else
+{
+    --AttemptsLeft;
+    std::cout << "\nWrong Password...\n\nPlease try again...\n";
+    return false;
+}
+
+ }
+int main()
+{
+    PrintIntroduction ();
+    srand(time(NULL)); // random number 
+    int LevelDifficulty = 1;
+    const int MaxDifficulty = 5;
+    int AttemptsLeft = 4;
+    const int MinAttemptsLeft = 1;
+
+while (LevelDifficulty <= MaxDifficulty && AttemptsLeft >= MinAttemptsLeft) //Loops until game difficulty is reached
+{
+    bool bLevelCompleted = PlayGame(LevelDifficulty);
+    std::cin.clear();//clears errors
+    std::cin.ignore();//discards buffer
+    if (bLevelCompleted)
+    {
+    ++LevelDifficulty;
+    }
+  else
+  {
+    
+    --AttemptsLeft;
+  }
+     
+    if (MinAttemptsLeft >= AttemptsLeft)
+{
+    std::cout << "\n you have " << AttemptsLeft << " attempts left";
+}
+
+}
+if (AttemptsLeft == 0)
+{
+std::cout << "\n\nGame Over\n\n";
+}
+return 0;
+
+}
